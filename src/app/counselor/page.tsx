@@ -16,6 +16,15 @@ export default function MusaCounselor() {
     const { isNidaVerified, nidaAge, activePathway, clearState } = useAppContext();
     const router = useRouter();
 
+    const [rightPanel, setRightPanel] = useState<"pass" | "map">("pass");
+    const [selectedClinic, setSelectedClinic] = useState<string | null>(null);
+
+    const clinics = [
+        { id: "isange", name: "Isange One Stop Center", area: "Kimihurura", service: "24/7 Emergency & PEP", top: "45%", left: "60%" },
+        { id: "kigali", name: "Kigali YF Clinic", area: "Nyamirambo", service: "PrEP & STI Testing", top: "70%", left: "30%" },
+        { id: "remera", name: "Remera Health Center", area: "Remera", service: "General Wellness", top: "35%", left: "80%" },
+    ];
+
     const initialMessage = activePathway === "crisis"
         ? "I see you are on the Emergency Path. Under Rwanda Law N° 026/2025, you have the legal right to immediate, confidential emergency care (PEP & Contraception). Please describe your situation so I can help."
         : "I see you are exploring Wellness block. Under Rwanda Law N° 026/2025, you have the legal right to these services. How can I guide you today?";
@@ -108,9 +117,9 @@ export default function MusaCounselor() {
                     </Link>
                     <nav className="hidden md:flex items-center gap-8">
                         <Link href="/counselor" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Counselor</Link>
-                        <Link href="#" className="text-primary text-sm font-semibold border-b-2 border-primary pb-1">Legal Pass</Link>
-                        <Link href="#" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Clinics</Link>
-                        <Link href="#" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Profile</Link>
+                        <button onClick={() => setRightPanel("pass")} className={`text-sm font-semibold pb-1 border-b-2 transition-colors ${rightPanel === "pass" ? "text-primary border-primary" : "text-slate-600 dark:text-slate-400 border-transparent hover:text-primary"}`}>Legal Pass</button>
+                        <button onClick={() => setRightPanel("map")} className={`text-sm font-semibold pb-1 border-b-2 transition-colors ${rightPanel === "map" ? "text-primary border-primary" : "text-slate-600 dark:text-slate-400 border-transparent hover:text-primary"}`}>Clinics Map</button>
+                        <Link href="/profile" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Profile</Link>
                     </nav>
                 </div>
                 <div className="flex items-center gap-4">
@@ -207,100 +216,156 @@ export default function MusaCounselor() {
                     </div>
                 </section>
 
-                {/* Pass Section (Static Visual - Dynamic data to come) */}
+                {/* Right Panel (Toggleable between Pass and Map) */}
                 <section className="flex-1 flex flex-col bg-background-light dark:bg-background-dark p-6 lg:p-12 items-center justify-center relative overflow-hidden">
-                    {/* Background Glows */}
-                    <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                        <div className="absolute -top-24 -right-24 size-96 bg-primary rounded-full blur-[100px]"></div>
-                        <div className="absolute -bottom-24 -left-24 size-96 bg-primary rounded-full blur-[100px]"></div>
-                    </div>
-
-                    <div className="w-full max-w-md space-y-8 z-10">
-                        <div className="text-center space-y-2">
-                            <h2 className="text-2xl font-bold tracking-tight">Digital Legal Pass</h2>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm">Validated Digital Access Credential</p>
-                        </div>
-
-                        <div className="pass-gradient rounded-3xl p-8 text-white shadow-2xl glow-effect relative overflow-hidden aspect-[1.6/1] flex flex-col justify-between group cursor-default transition-all hover:scale-[1.02]">
-                            <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-20 -mt-20 blur-2xl"></div>
-                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full -ml-16 -mb-16 blur-xl"></div>
-
-                            <div className="flex justify-between items-start">
-                                <div className="flex items-center gap-2">
-                                    <div className="size-10 bg-white/20 backdrop-blur-md rounded-lg flex items-center justify-center">
-                                        <span className="material-symbols-outlined text-white font-bold">shield</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-lg leading-none">U+U Pass</h3>
-                                        <p className="text-[10px] opacity-80 uppercase tracking-widest mt-1">Universal Health Auth</p>
-                                    </div>
-                                </div>
-                                <div className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold border border-white/20">
-                                    ID: 2026-X892-RWA
-                                </div>
+                    {rightPanel === "pass" ? (
+                        <>
+                            {/* Background Glows */}
+                            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                                <div className="absolute -top-24 -right-24 size-96 bg-primary rounded-full blur-[100px]"></div>
+                                <div className="absolute -bottom-24 -left-24 size-96 bg-primary rounded-full blur-[100px]"></div>
                             </div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="space-y-4">
-                                    <div>
-                                        <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Status</p>
-                                        <p className="text-sm font-bold flex items-center gap-1">
-                                            {isNidaVerified ? (
-                                                <>
-                                                    <span className="size-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,1)]"></span> VALIDATED ACCESS: {nidaAge}+
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <span className="size-2 bg-red-400 rounded-full shadow-[0_0_10px_rgba(248,113,113,1)]"></span> UNAUTHENTICATED
-                                                </>
-                                            )}
+                            <div className="w-full max-w-md space-y-8 z-10">
+                                <div className="text-center space-y-2">
+                                    <h2 className="text-2xl font-bold tracking-tight">Digital Legal Pass</h2>
+                                    <p className="text-slate-500 dark:text-slate-400 text-sm">Validated Digital Access Credential</p>
+                                </div>
+
+                                <div className="pass-gradient rounded-3xl p-8 text-white shadow-2xl glow-effect relative overflow-hidden aspect-[1.6/1] flex flex-col justify-between group cursor-default transition-all hover:scale-[1.02]">
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-20 -mt-20 blur-2xl"></div>
+                                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full -ml-16 -mb-16 blur-xl"></div>
+
+                                    <div className="flex justify-between items-start">
+                                        <div className="flex items-center gap-2">
+                                            <div className="size-10 bg-white/20 backdrop-blur-md rounded-lg flex items-center justify-center">
+                                                <span className="material-symbols-outlined text-white font-bold">shield</span>
+                                            </div>
+                                            <div>
+                                                <h3 className="font-bold text-lg leading-none">U+U Pass</h3>
+                                                <p className="text-[10px] opacity-80 uppercase tracking-widest mt-1">Universal Health Auth</p>
+                                            </div>
+                                        </div>
+                                        <div className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold border border-white/20">
+                                            ID: 2026-X892-RWA
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-4">
+                                            <div>
+                                                <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Status</p>
+                                                <p className="text-sm font-bold flex items-center gap-1">
+                                                    {isNidaVerified ? (
+                                                        <>
+                                                            <span className="size-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,1)]"></span> VALIDATED ACCESS: {nidaAge}+
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <span className="size-2 bg-red-400 rounded-full shadow-[0_0_10px_rgba(248,113,113,1)]"></span> UNAUTHENTICATED
+                                                        </>
+                                                    )}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Valid Until</p>
+                                                <p className="text-sm font-bold max-w-[80px]">31 DEC 2026</p>
+                                            </div>
+                                        </div>
+                                        <div className="bg-white p-3 rounded-2xl shadow-inner mt-4">
+                                            <div className="size-24 bg-slate-900 flex items-center justify-center rounded-lg" title="Dynamic QR Code">
+                                                <span className="material-symbols-outlined text-white text-5xl">qr_code_2</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="border-t border-white/20 pt-4 mt-2">
+                                        <p className="text-[9px] opacity-80 leading-tight">
+                                            This document serves as legal proof of age and service eligibility under the Rwandan health framework.
                                         </p>
                                     </div>
+                                </div>
+
+                                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4">
+                                    <p className="text-[11px] text-center text-slate-500 dark:text-slate-400 font-medium italic">
+                                        "Reference: Article 2(o), Law N° 026/2025 (Official Gazette). Possession of this digital pass grants immediate access to youth-friendly SRH services."
+                                    </p>
+                                </div>
+
+                                <div className="flex justify-center gap-4 mt-8 flex-wrap">
+                                    <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline transition-all">
+                                        <span className="material-symbols-outlined text-sm">download</span> Save to Device
+                                    </button>
+                                    <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline transition-all">
+                                        <span className="material-symbols-outlined text-sm">share</span> Share encrypted
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (confirm("DANGER: This will purge all local session data, chat history, and verification status. Proceed?")) {
+                                                clearState();
+                                                router.push("/");
+                                            }
+                                        }}
+                                        className="flex items-center gap-2 text-xs font-bold text-red-500 hover:text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded-full transition-all border border-red-500/20"
+                                    >
+                                        <span className="material-symbols-outlined text-sm">bomb</span> Self-Destruct
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="w-full max-w-md h-full flex flex-col items-center justify-center space-y-6 z-10 animate-in fade-in duration-500 relative">
+                            <div className="text-center space-y-2 mb-4 w-full">
+                                <h2 className="text-2xl font-bold tracking-tight">Health Facilities Map</h2>
+                                <p className="text-slate-500 dark:text-slate-400 text-sm">Discreet, youth-friendly clinics in Kigali</p>
+                            </div>
+
+                            {/* Interactive Map UI */}
+                            <div className="w-full aspect-square bg-slate-100 dark:bg-slate-800 rounded-[2rem] relative overflow-hidden shadow-xl border border-primary/20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-50 to-slate-200 dark:from-slate-700 dark:to-slate-900">
+                                {/* Map Grid Lines */}
+                                <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.5 }}></div>
+                                <div className="absolute inset-0 dark:hidden" style={{ backgroundImage: 'linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.2 }}></div>
+                                <div className="hidden dark:block absolute inset-0" style={{ backgroundImage: 'linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.5 }}></div>
+
+                                {/* Map Pins */}
+                                {clinics.map(clinic => (
+                                    <button
+                                        key={clinic.id}
+                                        onClick={() => setSelectedClinic(clinic.id)}
+                                        className={`absolute flex flex-col items-center group transition-all duration-300 ${selectedClinic === clinic.id ? 'scale-110 z-20' : 'hover:scale-105 z-10'}`}
+                                        style={{ top: clinic.top, left: clinic.left, transform: 'translate(-50%, -50%)' }}
+                                    >
+                                        <div className={`size-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${selectedClinic === clinic.id ? 'bg-primary text-white ring-4 ring-primary/30 border-2 border-white' : 'bg-white text-primary border-2 border-primary/20 group-hover:bg-primary/10'}`}>
+                                            <span className="material-symbols-outlined text-[20px]">{clinic.id === 'isange' ? 'local_hospital' : clinic.id === 'kigali' ? 'healing' : 'spa'}</span>
+                                        </div>
+                                        <div className={`mt-2 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold shadow-md transition-all duration-300 whitespace-nowrap ${selectedClinic === clinic.id ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900' : 'bg-white text-slate-700 dark:bg-slate-800 dark:text-slate-300 opacity-0 group-hover:opacity-100'}`}>
+                                            {clinic.name}
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Info Card */}
+                            {selectedClinic ? (
+                                <div className="w-full bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-primary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 animate-in slide-in-from-bottom-8 duration-300">
                                     <div>
-                                        <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Valid Until</p>
-                                        <p className="text-sm font-bold max-w-[80px]">31 DEC 2026</p>
+                                        <p className="text-[10px] text-primary font-bold uppercase tracking-widest flex items-center gap-1"><span className="size-1.5 bg-primary rounded-full"></span> {clinics.find(c => c.id === selectedClinic)?.service}</p>
+                                        <h3 className="text-lg font-black tracking-tight text-slate-900 dark:text-white mt-1">{clinics.find(c => c.id === selectedClinic)?.name}</h3>
+                                        <p className="text-sm font-medium text-slate-500 flex items-center gap-1 mt-1">
+                                            <span className="material-symbols-outlined text-[14px]">location_on</span> {clinics.find(c => c.id === selectedClinic)?.area}
+                                        </p>
                                     </div>
+                                    <button className="bg-primary/10 text-primary w-full sm:w-auto hover:bg-primary hover:text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm">
+                                        Route
+                                    </button>
                                 </div>
-                                <div className="bg-white p-3 rounded-2xl shadow-inner mt-4">
-                                    <div className="size-24 bg-slate-900 flex items-center justify-center rounded-lg" title="Dynamic QR Code">
-                                        <span className="material-symbols-outlined text-white text-5xl">qr_code_2</span>
-                                    </div>
+                            ) : (
+                                <div className="w-full bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 text-center animate-in fade-in">
+                                    <p className="text-sm font-medium text-slate-500">Select a clinic on the map to view details.</p>
                                 </div>
-                            </div>
-
-                            <div className="border-t border-white/20 pt-4 mt-2">
-                                <p className="text-[9px] opacity-80 leading-tight">
-                                    This document serves as legal proof of age and service eligibility under the Rwandan health framework.
-                                </p>
-                            </div>
+                            )}
                         </div>
-
-                        <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4">
-                            <p className="text-[11px] text-center text-slate-500 dark:text-slate-400 font-medium italic">
-                                "Reference: Article 2(o), Law N° 026/2025 (Official Gazette). Possession of this digital pass grants immediate access to youth-friendly SRH services."
-                            </p>
-                        </div>
-
-                        <div className="flex justify-center gap-4 mt-8 flex-wrap">
-                            <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline transition-all">
-                                <span className="material-symbols-outlined text-sm">download</span> Save to Device
-                            </button>
-                            <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline transition-all">
-                                <span className="material-symbols-outlined text-sm">share</span> Share encrypted
-                            </button>
-                            <button
-                                onClick={() => {
-                                    if (confirm("DANGER: This will purge all local session data, chat history, and verification status. Proceed?")) {
-                                        clearState();
-                                        router.push("/");
-                                    }
-                                }}
-                                className="flex items-center gap-2 text-xs font-bold text-red-500 hover:text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded-full transition-all border border-red-500/20"
-                            >
-                                <span className="material-symbols-outlined text-sm">bomb</span> Self-Destruct
-                            </button>
-                        </div>
-                    </div>
+                    )}
                 </section>
             </main>
 
