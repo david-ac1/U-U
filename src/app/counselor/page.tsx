@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAppContext } from "@/context/AppContext";
 
 type ChatMessage = {
@@ -12,7 +13,8 @@ type ChatMessage = {
 };
 
 export default function MusaCounselor() {
-    const { isNidaVerified, nidaAge, activePathway } = useAppContext();
+    const { isNidaVerified, nidaAge, activePathway, clearState } = useAppContext();
+    const router = useRouter();
 
     const initialMessage = activePathway === "crisis"
         ? "I see you are on the Emergency Path. Under Rwanda Law N° 026/2025, you have the legal right to immediate, confidential emergency care (PEP & Contraception). Please describe your situation so I can help."
@@ -279,12 +281,23 @@ export default function MusaCounselor() {
                             </p>
                         </div>
 
-                        <div className="flex justify-center gap-4">
-                            <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline">
+                        <div className="flex justify-center gap-4 mt-8 flex-wrap">
+                            <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline transition-all">
                                 <span className="material-symbols-outlined text-sm">download</span> Save to Device
                             </button>
-                            <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline">
+                            <button className="flex items-center gap-2 text-xs font-bold text-primary hover:underline transition-all">
                                 <span className="material-symbols-outlined text-sm">share</span> Share encrypted
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (confirm("DANGER: This will purge all local session data, chat history, and verification status. Proceed?")) {
+                                        clearState();
+                                        router.push("/");
+                                    }
+                                }}
+                                className="flex items-center gap-2 text-xs font-bold text-red-500 hover:text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded-full transition-all border border-red-500/20"
+                            >
+                                <span className="material-symbols-outlined text-sm">bomb</span> Self-Destruct
                             </button>
                         </div>
                     </div>
