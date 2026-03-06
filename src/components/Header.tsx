@@ -38,7 +38,9 @@ export default function Header() {
                             </div>
                         </div>
                     )}
-                    <div className="size-10 rounded-full border-2 border-primary/20 bg-slate-200" title="User profile placeholder avatar"></div>
+                    <Link href="/profile" className="size-10 rounded-full border-2 border-primary/20 bg-slate-200 flex items-center justify-center hover:bg-primary/20 transition-colors" title="User profile pointer">
+                        <span className="material-symbols-outlined text-slate-500 hover:text-primary">person</span>
+                    </Link>
                 </div>
             </nav>
         </header>
