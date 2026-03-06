@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Musa Health | Counselor &amp; Digital Pass</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00c2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2223",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 194, 204, 0.2);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(0, 194, 204, 0.3);
+        }
+        .pass-gradient {
+            background: linear-gradient(135deg, #00c2cc 0%, #008a91 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased h-screen flex flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-10 py-3 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">health_metrics</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Musa Health</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Counselor</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">Legal Pass</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Clinics</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex items-center gap-2 text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">search</span>
+</button>
+<button class="bg-primary text-slate-900 px-6 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+                Emergency Help
+            </button>
+<div class="size-10 rounded-full border-2 border-primary/20 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="User profile avatar photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDB0DvOdmvVhvBASuYJAWE60Q4l25hzIldRblaujJCm8Mwmwk4SVs4nMWAnQPRP1FN7ZBlOeivPpOjx4o8ZGYsFeJR0TBKO0e-7kFKNr4rjGeIj-3tKKeJEo2CrSJ1v3d9IK3SWZ1YVJwSNh2Sd6ou49LF73j_f2YZIGvaWGGcKDE4klcoxoMaD2qZzkMgTt5qBMnNrdJIqO3SypDvm066PvbAAuueJulp77TDdhAY3Pxo4rkpoM1nLC-K826wdJGDu7h8CQH8V-AQb')"></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col md:flex-row overflow-hidden">
+<section class="flex-1 flex flex-col bg-white dark:bg-slate-900/50 border-r border-primary/10">
+<div class="p-6 border-b border-primary/5 flex items-center justify-between">
+<div>
+<h1 class="text-xl font-bold">Musa Counselor</h1>
+<p class="text-xs text-primary font-medium uppercase tracking-wider">Active Chat Session</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-slate-500">more_vert</span></button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<div class="flex items-end gap-3 max-w-[85%]">
+<div class="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-xl">smart_toy</span>
+</div>
+<div class="space-y-1">
+<span class="text-[11px] font-semibold text-primary ml-1 uppercase">Musa (Your U+U Guide)</span>
+<div class="bg-background-light dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-primary/5 shadow-sm">
+<p class="text-sm leading-relaxed">
+                                Under Rwanda Law N° 026/2025, you have the legal right to these services. I've found 3 Youth-Friendly Clinics near Kimisagara.
+                            </p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 items-end ml-auto max-w-[85%]">
+<div class="bg-primary text-slate-900 p-4 rounded-2xl rounded-br-none shadow-md">
+<p class="text-sm font-medium">Thank you, Musa. Can you show me my digital pass for the visit?</p>
+</div>
+<span class="text-[10px] text-slate-400 mr-1">Read 14:02</span>
+</div>
+<div class="flex items-end gap-3 max-w-[85%]">
+<div class="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-xl">smart_toy</span>
+</div>
+<div class="space-y-1">
+<span class="text-[11px] font-semibold text-primary ml-1 uppercase">Musa (Your U+U Guide)</span>
+<div class="bg-background-light dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-primary/5 shadow-sm">
+<p class="text-sm leading-relaxed">
+                                Of course! I've generated your encrypted Digital Health Access Card. It's visible on the right panel. This is valid for all youth-friendly health centers.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-white dark:bg-background-dark border-t border-primary/10">
+<div class="relative flex items-center gap-3 bg-background-light dark:bg-slate-800 rounded-xl p-2 px-4 border border-primary/10">
+<button class="text-primary hover:text-primary/70"><span class="material-symbols-outlined">add_circle</span></button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 placeholder:text-slate-400" placeholder="Ask Musa anything..." type="text"/>
+<div class="flex items-center gap-2">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">sentiment_satisfied</span></button>
+<button class="bg-primary text-slate-900 p-2 rounded-lg hover:brightness-105 transition-all">
+<span class="material-symbols-outlined text-lg">send</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<section class="flex-1 flex flex-col bg-background-light dark:bg-background-dark p-6 lg:p-12 items-center justify-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+<div class="absolute -top-24 -right-24 size-96 bg-primary rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -left-24 size-96 bg-primary rounded-full blur-[100px]"></div>
+</div>
+<div class="w-full max-w-md space-y-8 z-10">
+<div class="text-center space-y-2">
+<h2 class="text-2xl font-bold tracking-tight">Digital Legal Pass</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Validated Digital Access Credential</p>
+</div>
+<div class="pass-gradient rounded-3xl p-8 text-white shadow-2xl glow-effect relative overflow-hidden aspect-[1.6/1] flex flex-col justify-between group cursor-default">
+<div class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-20 -mt-20 blur-2xl"></div>
+<div class="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full -ml-16 -mb-16 blur-xl"></div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<div class="size-10 bg-white/20 backdrop-blur-md rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white font-bold">shield</span>
+</div>
+<div>
+<h3 class="font-bold text-lg leading-none">U+U Pass</h3>
+<p class="text-[10px] opacity-80 uppercase tracking-widest mt-1">Universal Health Auth</p>
+</div>
+</div>
+<div class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold border border-white/20">
+                            ID: 2026-X892-RWA
+                        </div>
+</div>
+<div class="flex items-center justify-between">
+<div class="space-y-4">
+<div>
+<p class="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Status</p>
+<p class="text-sm font-bold flex items-center gap-1">
+<span class="size-2 bg-green-400 rounded-full animate-pulse"></span>
+                                    VALIDATED ACCESS: 15+
+                                </p>
+</div>
+<div>
+<p class="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Valid Until</p>
+<p class="text-sm font-bold">31 DEC 2026</p>
+</div>
+</div>
+<div class="bg-white p-3 rounded-2xl shadow-inner">
+<div class="size-24 bg-slate-900 flex items-center justify-center rounded-lg" data-alt="Dynamic QR Code for medical validation">
+<span class="material-symbols-outlined text-white text-5xl">qr_code_2</span>
+</div>
+</div>
+</div>
+<div class="border-t border-white/20 pt-4 mt-2">
+<p class="text-[9px] opacity-80 leading-tight">
+                            This document serves as legal proof of age and service eligibility under the Rwandan health framework.
+                        </p>
+</div>
+</div>
+<div class="bg-primary/5 border border-primary/20 rounded-2xl p-4">
+<p class="text-[11px] text-center text-slate-500 dark:text-slate-400 font-medium italic">
+                        "Reference: Article 2(o), Law N° 026/2025 (Official Gazette). Possession of this digital pass grants immediate access to youth-friendly SRH services."
+                    </p>
+</div>
+<div class="flex justify-center gap-4">
+<button class="flex items-center gap-2 text-xs font-bold text-primary hover:underline">
+<span class="material-symbols-outlined text-sm">download</span> Save to Device
+                    </button>
+<button class="flex items-center gap-2 text-xs font-bold text-primary hover:underline">
+<span class="material-symbols-outlined text-sm">share</span> Share encrypted
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-white dark:bg-background-dark border-t border-primary/10 px-6 py-4">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-6 text-xs font-medium text-slate-500 dark:text-slate-400">
+<span class="text-slate-900 dark:text-slate-200 uppercase tracking-widest text-[10px] font-bold">Local Support</span>
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">location_on</span> Isange One Stop Center
+                </a>
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">call</span> Helpline: 3029
+                </a>
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">description</span> Legal Aid Rwanda
+                </a>
+</div>
+<div class="flex items-center gap-4 text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+<span>© 2026 Musa Health</span>
+<span class="size-1 bg-primary/30 rounded-full"></span>
+<span>Privacy First Architecture</span>
+</div>
+</div>
+</footer>
+</body></html>

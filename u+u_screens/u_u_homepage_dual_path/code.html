@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>U+U | Health-Tech 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00c2cc",
+                        "coral-accent": "#FF7F50",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2223",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "2xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/70 backdrop-blur-md dark:bg-background-dark/70 px-6 lg:px-20 py-4">
+<nav class="mx-auto flex max-w-7xl items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center bg-primary rounded-lg p-1.5 text-white">
+<span class="material-symbols-outlined !text-3xl">all_inclusive</span>
+</div>
+<h1 class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">U<span class="text-primary">+</span>U</h1>
+</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Shop</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Directives</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Legal</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                        Login
+                    </button>
+<div class="size-10 rounded-full border-2 border-primary/20 bg-slate-200" data-alt="User profile placeholder avatar"></div>
+</div>
+</nav>
+</header>
+<main class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 lg:px-20 py-10 gap-12">
+<!-- Hero Header -->
+<div class="max-w-2xl">
+<h2 class="text-5xl font-black leading-tight tracking-tight lg:text-6xl">
+                    Health tech <span class="text-primary">refined.</span>
+</h2>
+<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+                    Your destination for clinical-grade care, delivered with modern discretion. Choose your path to wellness.
+                </p>
+</div>
+<!-- Dual-Path Action Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Crisis Path Card -->
+<div class="group relative overflow-hidden rounded-lg bg-coral-accent p-8 lg:p-12 text-white shadow-2xl transition-transform hover:scale-[1.01]">
+<div class="absolute -right-16 -top-16 size-64 rounded-full bg-white/10 blur-3xl"></div>
+<div class="relative z-10 flex h-full flex-col justify-between gap-12">
+<div>
+<span class="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
+<span class="material-symbols-outlined !text-sm">priority_high</span> Urgent Care
+                            </span>
+<h3 class="mt-6 text-4xl font-extrabold lg:text-5xl">I need Emergency Help</h3>
+<p class="mt-4 text-lg font-medium text-white/80">PEP, Emergency Contraception, Crisis Support</p>
+</div>
+<!-- Countdown Timer -->
+<div class="glass-card rounded-xl p-6">
+<p class="mb-4 text-sm font-bold uppercase tracking-widest text-white/60">Time remaining for PEP efficacy</p>
+<div class="flex gap-4">
+<div class="flex-1 text-center">
+<div class="text-4xl font-black">71</div>
+<div class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Hours</div>
+</div>
+<div class="text-4xl font-light opacity-30">:</div>
+<div class="flex-1 text-center">
+<div class="text-4xl font-black">48</div>
+<div class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Minutes</div>
+</div>
+<div class="text-4xl font-light opacity-30">:</div>
+<div class="flex-1 text-center">
+<div class="text-4xl font-black">22</div>
+<div class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Seconds</div>
+</div>
+</div>
+</div>
+<button class="w-full bg-white text-coral-accent py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-50 transition-colors">
+                            Start Crisis Path
+                        </button>
+</div>
+</div>
+<!-- Care Path Card -->
+<div class="group relative overflow-hidden rounded-lg bg-primary p-8 lg:p-12 text-white shadow-2xl transition-transform hover:scale-[1.01]">
+<div class="absolute -right-16 -top-16 size-64 rounded-full bg-black/5 blur-3xl"></div>
+<div class="relative z-10 flex h-full flex-col justify-between gap-12">
+<div>
+<span class="inline-flex items-center gap-2 rounded-full bg-black/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
+<span class="material-symbols-outlined !text-sm">favorite</span> Wellness
+                            </span>
+<h3 class="mt-6 text-4xl font-extrabold lg:text-5xl">I want to stay Healthy</h3>
+<p class="mt-4 text-lg font-medium text-white/90">Discreet Delivery of Condoms, PrEP, HIV Tests, Pads</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 rounded-xl border border-white/20 bg-white/10 p-4">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-sm font-semibold">Same-day delivery available in most cities</span>
+</div>
+<div class="flex items-center gap-4 rounded-xl border border-white/20 bg-white/10 p-4">
+<span class="material-symbols-outlined">shield_person</span>
+<span class="text-sm font-semibold">100% Confidential Clinical Support</span>
+</div>
+</div>
+<button class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-800 transition-colors">
+                            Explore Care Path
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Trending Knowledge Bar -->
+<section class="mt-8">
+<div class="flex items-center justify-between mb-8">
+<h4 class="text-2xl font-bold">Trending Knowledge</h4>
+<a class="text-primary font-bold flex items-center gap-1 hover:underline" href="#">View all <span class="material-symbols-outlined !text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex items-center gap-6 p-6 rounded-lg bg-white dark:bg-slate-800/50 border border-primary/10 hover:border-primary/30 transition-all cursor-pointer">
+<div class="size-20 flex-shrink-0 rounded-lg bg-primary/10 overflow-hidden" data-alt="Illustration of medical concept U=U">
+<div class="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary !text-3xl">science</span>
+</div>
+</div>
+<div>
+<h5 class="text-xl font-bold mb-1">U=U: What it means for you</h5>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Undetectable equals Untransmittable. Learn the science behind the modern standard of care.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 p-6 rounded-lg bg-white dark:bg-slate-800/50 border border-primary/10 hover:border-primary/30 transition-all cursor-pointer">
+<div class="size-20 flex-shrink-0 rounded-lg bg-coral-accent/10 overflow-hidden" data-alt="Legal scales of justice illustration">
+<div class="w-full h-full bg-gradient-to-br from-coral-accent/20 to-coral-accent/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-coral-accent !text-3xl">gavel</span>
+</div>
+</div>
+<div>
+<h5 class="text-xl font-bold mb-1">The 2025 Health Law: Know your Rights</h5>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Everything you need to know about new privacy protections and access to preventative care.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="mt-auto border-t border-primary/5 bg-slate-50 dark:bg-slate-900/30 px-6 lg:px-20 py-10">
+<div class="mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2 grayscale opacity-50">
+<span class="material-symbols-outlined">all_inclusive</span>
+<span class="font-bold tracking-tighter">U+U HEALTH</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500 font-medium">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Accessibility</a>
+</div>
+<p class="text-xs text-slate-400">© 2026 U+U Health-Tech. Clinical-Cool since 2025.</p>
+</div>
+</footer>
+</div>
+</body></html>
