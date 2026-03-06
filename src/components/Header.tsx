@@ -1,11 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 
 export default function Header() {
-    const { isNidaVerified, nidaAge } = useAppContext();
+    const { isNidaVerified, nidaAge, cart } = useAppContext();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/70 backdrop-blur-md dark:bg-background-dark/70 px-6 lg:px-20 py-4">
@@ -18,11 +21,11 @@ export default function Header() {
                         U<span className="text-primary">+</span>U
                     </h1>
                 </Link>
-                <div className="hidden md:flex items-center gap-10">
-                    <Link href="/checkout" className="text-sm font-semibold hover:text-primary transition-colors">Shop</Link>
-                    <Link href="/counselor" className="text-sm font-semibold hover:text-primary transition-colors">Directives</Link>
-                    <Link href="#" className="text-sm font-semibold hover:text-primary transition-colors">Legal</Link>
-                </div>
+                <nav className="hidden lg:flex items-center gap-10">
+                    <Link href="/shop" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Prevention</Link>
+                    <Link href="/shop" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">PrEP</Link>
+                    <Link href="/shop" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Testing</Link>
+                </nav>
                 <div className="flex items-center gap-4">
                     {!isNidaVerified ? (
                         <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-primary/20">

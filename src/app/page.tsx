@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -113,12 +114,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <button
-                onClick={() => handleStartPathway("wellness")}
-                className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-800 transition-colors"
-              >
-                Explore Care Path
-              </button>
+              <Link href="/shop" className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-lg shadow-xl hover:bg-slate-800 transition-colors group">
+                Browse Marketplace <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </Link>
             </div>
           </div>
         </div>

@@ -4,17 +4,28 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type Pathway = "crisis" | "wellness" | null;
 
+export type CartItem = {
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+    requiresClinic: boolean;
+    quantity: number;
+};
+
 interface AppState {
     isNidaVerified: boolean;
     nidaAge: number | null;
     activePathway: Pathway;
-    cartCount: number;
+    cart: CartItem[];
 }
 
 interface AppContextType extends AppState {
     verifyNida: (age: number) => void;
     setPathway: (pathway: Pathway) => void;
-    addToCart: (count?: number) => void;
+    addToCart: (item: CartItem) => void;
+    removeFromCart: (itemId: string) => void;
+    updateQuantity: (itemId: string, quantity: number) => void;
     clearState: () => void;
 }
 
@@ -22,7 +33,7 @@ const initialState: AppState = {
     isNidaVerified: false,
     nidaAge: null,
     activePathway: null,
-    cartCount: 0,
+    cart: [],
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -38,8 +49,33 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setState((prev) => ({ ...prev, activePathway: pathway }));
     };
 
-    const addToCart = (count: number = 1) => {
-        setState((prev) => ({ ...prev, cartCount: prev.cartCount + count }));
+    const addToCart = (item: CartItem) => {
+        setState((prev) => {
+            const existing = prev.cart.find((i) => i.id === item.id);
+            if (existing) {
+                return {
+                    ...prev,
+                    cart: prev.cart.map((i) =>
+                        i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+                    ),
+                };
+            }
+            return { ...prev, cart: [...prev.cart, item] };
+        });
+    };
+
+    const removeFromCart = (itemId: string) => {
+        setState((prev) => ({
+            ...prev,
+            cart: prev.cart.filter((i) => i.id !== itemId),
+        }));
+    };
+
+    const updateQuantity = (itemId: string, quantity: number) => {
+        setState((prev) => ({
+            ...prev,
+            cart: prev.cart.map((i) => (i.id === itemId ? { ...i, quantity } : i)),
+        }));
     };
 
     const clearState = () => {
@@ -47,7 +83,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <AppContext.Provider value={{ ...state, verifyNida, setPathway, addToCart, clearState }}>
+        <AppContext.Provider value={{ ...state, verifyNida, setPathway, addToCart, removeFromCart, updateQuantity, clearState }}>
             {children}
         </AppContext.Provider>
     );

@@ -2,12 +2,18 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // Added useRouter import
 import { useAppContext } from "@/context/AppContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export default function ProfileDashboard() {
-    const { isNidaVerified, activePathway, cartCount } = useAppContext();
+    const { isNidaVerified, activePathway, cart } = useAppContext(); // Changed cartCount to cart
+    const router = useRouter(); // Added router initialization
+
+    const [activeTab, setActiveTab] = useState<"adherence" | "history">("adherence"); // Added activeTab state
+
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0); // Added cartCount calculation
     const [streak, setStreak] = useState(12);
     const [pillTakenToday, setPillTakenToday] = useState(false);
 
