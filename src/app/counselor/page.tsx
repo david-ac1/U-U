@@ -1,7 +1,92 @@
-import React from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
+type ChatMessage = {
+    id: string;
+    role: "user" | "musa";
+    text: string;
+    timestamp: string;
+};
+
 export default function MusaCounselor() {
+    const [messages, setMessages] = useState<ChatMessage[]>([
+        {
+            id: "1",
+            role: "musa",
+            text: "Under Rwanda Law N° 026/2025, you have the legal right to these services. How can I guide you today?",
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        }
+    ]);
+    const [input, setInput] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const handleSend = async () => {
+        if (!input.trim() || isLoading) return;
+
+        const userMessage: ChatMessage = {
+            id: Date.now().toString(),
+            role: "user",
+            text: input.trim(),
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        };
+
+        setMessages((prev) => [...prev, userMessage]);
+        setInput("");
+        setIsLoading(true);
+
+        try {
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: userMessage.text }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const musaMessage: ChatMessage = {
+                    id: (Date.now() + 1).toString(),
+                    role: "musa",
+                    text: data.text,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                };
+                setMessages((prev) => [...prev, musaMessage]);
+            } else {
+                throw new Error(data.error || "Failed to fetch");
+            }
+        } catch (error) {
+            console.error(error);
+            const errorMessage: ChatMessage = {
+                id: (Date.now() + 1).toString(),
+                role: "musa",
+                text: "I am having trouble connecting to my knowledge base right now. Please try again in a moment.",
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            };
+            setMessages((prev) => [...prev, errorMessage]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleSend();
+        }
+    };
+
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased h-screen flex flex-col">
             <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-10 py-3 z-50">
@@ -34,61 +119,78 @@ export default function MusaCounselor() {
 
             <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                 {/* Chat Section */}
-                <section className="flex-1 flex flex-col bg-white dark:bg-slate-900/50 border-r border-primary/10">
-                    <div className="p-6 border-b border-primary/5 flex items-center justify-between">
+                <section className="flex-1 flex flex-col bg-white dark:bg-slate-900/50 border-r border-primary/10 relative">
+                    <div className="p-6 border-b border-primary/5 flex items-center justify-between bg-white dark:bg-slate-900/50 z-10 w-full">
                         <div>
                             <h1 className="text-xl font-bold">Musa Counselor</h1>
-                            <p className="text-xs text-primary font-medium uppercase tracking-wider">Active Chat Session</p>
+                            <p className="text-xs text-primary font-medium uppercase tracking-wider flex items-center gap-2">
+                                <span className="size-2 bg-green-500 rounded-full animate-pulse"></span> Active Chat Session
+                            </p>
                         </div>
                         <div className="flex gap-2">
                             <button className="p-2 hover:bg-primary/10 rounded-full transition-colors"><span className="material-symbols-outlined text-slate-500">more_vert</span></button>
                         </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                        <div className="flex items-end gap-3 max-w-[85%]">
-                            <div className="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                                <span className="material-symbols-outlined text-primary text-xl">smart_toy</span>
-                            </div>
-                            <div className="space-y-1">
-                                <span className="text-[11px] font-semibold text-primary ml-1 uppercase">Musa (Your U+U Guide)</span>
-                                <div className="bg-background-light dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-primary/5 shadow-sm">
-                                    <p className="text-sm leading-relaxed">
-                                        Under Rwanda Law N° 026/2025, you have the legal right to these services. I've found 3 Youth-Friendly Clinics near Kimisagara.
-                                    </p>
+                    <div className="flex-1 overflow-y-auto p-6 space-y-6 scroll-smooth">
+                        {messages.map((msg) => (
+                            msg.role === "musa" ? (
+                                <div key={msg.id} className="flex items-end gap-3 max-w-[85%]">
+                                    <div className="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                                        <span className="material-symbols-outlined text-primary text-xl">smart_toy</span>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <span className="text-[11px] font-semibold text-primary ml-1 uppercase">Musa (Your U+U Guide)</span>
+                                        <div className="bg-background-light dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-primary/5 shadow-sm">
+                                            <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div key={msg.id} className="flex flex-col gap-2 items-end ml-auto max-w-[85%]">
+                                    <div className="bg-primary text-slate-900 p-4 rounded-2xl rounded-br-none shadow-md">
+                                        <p className="text-sm font-medium">{msg.text}</p>
+                                    </div>
+                                    <span className="text-[10px] text-slate-400 mr-1">Read {msg.timestamp}</span>
+                                </div>
+                            )
+                        ))}
+
+                        {isLoading && (
+                            <div className="flex items-end gap-3 max-w-[85%]">
+                                <div className="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0 animate-pulse">
+                                    <span className="material-symbols-outlined text-primary text-xl">smart_toy</span>
+                                </div>
+                                <div className="bg-background-light dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-primary/5 shadow-sm flex gap-1">
+                                    <div className="size-2 bg-primary/50 rounded-full animate-bounce"></div>
+                                    <div className="size-2 bg-primary/50 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                                    <div className="size-2 bg-primary/50 rounded-full animate-bounce [animation-delay:0.4s]"></div>
                                 </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className="flex flex-col gap-2 items-end ml-auto max-w-[85%]">
-                            <div className="bg-primary text-slate-900 p-4 rounded-2xl rounded-br-none shadow-md">
-                                <p className="text-sm font-medium">Thank you, Musa. Can you show me my digital pass for the visit?</p>
-                            </div>
-                            <span className="text-[10px] text-slate-400 mr-1">Read 14:02</span>
-                        </div>
-
-                        <div className="flex items-end gap-3 max-w-[85%]">
-                            <div className="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                                <span className="material-symbols-outlined text-primary text-xl">smart_toy</span>
-                            </div>
-                            <div className="space-y-1">
-                                <span className="text-[11px] font-semibold text-primary ml-1 uppercase">Musa (Your U+U Guide)</span>
-                                <div className="bg-background-light dark:bg-slate-800 p-4 rounded-2xl rounded-bl-none border border-primary/5 shadow-sm">
-                                    <p className="text-sm leading-relaxed">
-                                        Of course! I've generated your encrypted Digital Health Access Card. It's visible on the right panel. This is valid for all youth-friendly health centers.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        <div ref={messagesEndRef} />
                     </div>
 
                     <div className="p-4 bg-white dark:bg-background-dark border-t border-primary/10">
-                        <div className="relative flex items-center gap-3 bg-background-light dark:bg-slate-800 rounded-xl p-2 px-4 border border-primary/10">
+                        <div className="relative flex items-center gap-3 bg-background-light dark:bg-slate-800 rounded-xl p-2 px-4 border border-primary/10 focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
                             <button className="text-primary hover:text-primary/70"><span className="material-symbols-outlined">add_circle</span></button>
-                            <input className="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 outline-none placeholder:text-slate-400" placeholder="Ask Musa anything..." type="text" />
+                            <input
+                                className="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 outline-none placeholder:text-slate-400"
+                                placeholder="Ask Musa anything..."
+                                type="text"
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                disabled={isLoading}
+                            />
                             <div className="flex items-center gap-2">
                                 <button className="text-slate-400 hover:text-primary transition-colors"><span className="material-symbols-outlined">sentiment_satisfied</span></button>
-                                <button className="bg-primary text-slate-900 p-2 rounded-lg hover:brightness-105 transition-all">
+                                <button
+                                    onClick={handleSend}
+                                    disabled={isLoading || !input.trim()}
+                                    className="bg-primary text-slate-900 p-2 rounded-lg hover:brightness-105 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                >
                                     <span className="material-symbols-outlined text-lg">send</span>
                                 </button>
                             </div>
@@ -96,7 +198,7 @@ export default function MusaCounselor() {
                     </div>
                 </section>
 
-                {/* Pass Section */}
+                {/* Pass Section (Static Visual - Dynamic data to come) */}
                 <section className="flex-1 flex flex-col bg-background-light dark:bg-background-dark p-6 lg:p-12 items-center justify-center relative overflow-hidden">
                     {/* Background Glows */}
                     <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
@@ -110,7 +212,7 @@ export default function MusaCounselor() {
                             <p className="text-slate-500 dark:text-slate-400 text-sm">Validated Digital Access Credential</p>
                         </div>
 
-                        <div className="pass-gradient rounded-3xl p-8 text-white shadow-2xl glow-effect relative overflow-hidden aspect-[1.6/1] flex flex-col justify-between group cursor-default">
+                        <div className="pass-gradient rounded-3xl p-8 text-white shadow-2xl glow-effect relative overflow-hidden aspect-[1.6/1] flex flex-col justify-between group cursor-default transition-all hover:scale-[1.02]">
                             <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-20 -mt-20 blur-2xl"></div>
                             <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full -ml-16 -mb-16 blur-xl"></div>
 
@@ -134,15 +236,15 @@ export default function MusaCounselor() {
                                     <div>
                                         <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Status</p>
                                         <p className="text-sm font-bold flex items-center gap-1">
-                                            <span className="size-2 bg-green-400 rounded-full animate-pulse"></span> VALIDATED ACCESS: 15+
+                                            <span className="size-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,1)]"></span> VALIDATED ACCESS: 15+
                                         </p>
                                     </div>
                                     <div>
                                         <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Valid Until</p>
-                                        <p className="text-sm font-bold">31 DEC 2026</p>
+                                        <p className="text-sm font-bold max-w-[80px]">31 DEC 2026</p>
                                     </div>
                                 </div>
-                                <div className="bg-white p-3 rounded-2xl shadow-inner">
+                                <div className="bg-white p-3 rounded-2xl shadow-inner mt-4">
                                     <div className="size-24 bg-slate-900 flex items-center justify-center rounded-lg" title="Dynamic QR Code">
                                         <span className="material-symbols-outlined text-white text-5xl">qr_code_2</span>
                                     </div>
