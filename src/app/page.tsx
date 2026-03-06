@@ -1,8 +1,35 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NidaModal from "@/components/NidaModal";
+import { useAppContext } from "@/context/AppContext";
 
 export default function Home() {
+  const router = useRouter();
+  const { setPathway, isNidaVerified } = useAppContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pendingPathway, setPendingPathway] = useState<"crisis" | "wellness" | null>(null);
+
+  const handleStartPathway = (pathway: "crisis" | "wellness") => {
+    setPathway(pathway);
+    if (!isNidaVerified) {
+      setPendingPathway(pathway);
+      setIsModalOpen(true);
+    } else {
+      router.push("/counselor");
+    }
+  };
+
+  const onNidaSuccess = () => {
+    setIsModalOpen(false);
+    if (pendingPathway) {
+      router.push("/counselor");
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
       <Header />
@@ -54,7 +81,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <button className="w-full bg-white text-coral-accent py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-50 transition-colors">
+              <button
+                onClick={() => handleStartPathway("crisis")}
+                className="w-full bg-white text-coral-accent py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-50 transition-colors"
+              >
                 Start Crisis Path
               </button>
             </div>
@@ -83,7 +113,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <button className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-800 transition-colors">
+              <button
+                onClick={() => handleStartPathway("wellness")}
+                className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-slate-800 transition-colors"
+              >
                 Explore Care Path
               </button>
             </div>
@@ -127,6 +160,12 @@ export default function Home() {
       </main>
 
       <Footer />
+
+      <NidaModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={onNidaSuccess}
+      />
     </div>
   );
 }

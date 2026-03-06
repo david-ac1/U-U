@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useAppContext } from "@/context/AppContext";
 
 type ChatMessage = {
     id: string;
@@ -11,11 +12,17 @@ type ChatMessage = {
 };
 
 export default function MusaCounselor() {
+    const { isNidaVerified, nidaAge, activePathway } = useAppContext();
+
+    const initialMessage = activePathway === "crisis"
+        ? "I see you are on the Emergency Path. Under Rwanda Law N° 026/2025, you have the legal right to immediate, confidential emergency care (PEP & Contraception). Please describe your situation so I can help."
+        : "I see you are exploring Wellness block. Under Rwanda Law N° 026/2025, you have the legal right to these services. How can I guide you today?";
+
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
             id: "1",
             role: "musa",
-            text: "Under Rwanda Law N° 026/2025, you have the legal right to these services. How can I guide you today?",
+            text: initialMessage,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         }
     ]);
@@ -236,7 +243,15 @@ export default function MusaCounselor() {
                                     <div>
                                         <p className="text-[10px] opacity-70 uppercase font-bold tracking-tighter">Status</p>
                                         <p className="text-sm font-bold flex items-center gap-1">
-                                            <span className="size-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,1)]"></span> VALIDATED ACCESS: 15+
+                                            {isNidaVerified ? (
+                                                <>
+                                                    <span className="size-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,1)]"></span> VALIDATED ACCESS: {nidaAge}+
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="size-2 bg-red-400 rounded-full shadow-[0_0_10px_rgba(248,113,113,1)]"></span> UNAUTHENTICATED
+                                                </>
+                                            )}
                                         </p>
                                     </div>
                                     <div>
