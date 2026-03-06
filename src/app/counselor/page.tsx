@@ -117,6 +117,7 @@ export default function MusaCounselor() {
                     </Link>
                     <nav className="hidden md:flex items-center gap-8">
                         <Link href="/counselor" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Counselor</Link>
+                        <Link href="/shop" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Shop</Link>
                         <button onClick={() => setRightPanel("pass")} className={`text-sm font-semibold pb-1 border-b-2 transition-colors ${rightPanel === "pass" ? "text-primary border-primary" : "text-slate-600 dark:text-slate-400 border-transparent hover:text-primary"}`}>Legal Pass</button>
                         <button onClick={() => setRightPanel("map")} className={`text-sm font-semibold pb-1 border-b-2 transition-colors ${rightPanel === "map" ? "text-primary border-primary" : "text-slate-600 dark:text-slate-400 border-transparent hover:text-primary"}`}>Clinics Map</button>
                         <Link href="/profile" className="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Profile</Link>

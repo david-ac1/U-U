@@ -41,6 +41,14 @@ export default function Header() {
                             </div>
                         </div>
                     )}
+                    <Link href="/shop" className="relative p-2 text-slate-600 hover:text-primary transition-colors" title="View Cart">
+                        <span className="material-symbols-outlined text-2xl">shopping_cart</span>
+                        {cartCount > 0 && (
+                            <span className="absolute top-0 right-0 bg-primary text-slate-900 text-[10px] font-black size-5 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-800 animate-in zoom-in duration-300">
+                                {cartCount}
+                            </span>
+                        )}
+                    </Link>
                     <Link href="/profile" className="size-10 rounded-full border-2 border-primary/20 bg-slate-200 flex items-center justify-center hover:bg-primary/20 transition-colors" title="User profile pointer">
                         <span className="material-symbols-outlined text-slate-500 hover:text-primary">person</span>
                     </Link>
